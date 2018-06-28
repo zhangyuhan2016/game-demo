@@ -11,7 +11,7 @@
             游戏失败，得分{{world.s}}
         </div>
         <canvas id="game-main" width="1000" height="608"></canvas>
-        <div class="tip" v-show="world.status != false">按下 K {{world.status === null ? '重新开始' : '开始'}}游戏</div>
+        <div class="tip" v-show="world.status != false">空格键起飞,按下 K {{world.status === null ? '重新开始' : '开始'}}游戏</div>
     </div>
 </template>
 <script>
