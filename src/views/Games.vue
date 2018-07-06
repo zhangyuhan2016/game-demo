@@ -76,7 +76,7 @@
         <!--提示横屏-->
         <div class="heng" v-if="game.heng">
             <img src="../assets/ui/heng.png" alt="横屏">
-            <span>请旋转手机至横屏</span>
+            <span>{{game.tip}}</span>
         </div>
     </div>
 </template>
@@ -154,12 +154,14 @@
           old: Date.now(),
           img: {},
           imgStatus: false,
-          play: {}
+          play: {},
+          tip: '请旋转手机至横屏'
         }
       }
     },
     created: function () {}, // 创建时
-    beforeMount: function () {
+    beforeMount: function () {}, // 挂载之前
+    mounted: function () {
       /* 判断横竖屏 */
       this.hengshu()
       window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', this.hengshu, false)
@@ -167,15 +169,6 @@
       this.getALLImg()
       /* 加载数据 */
       this.getDD(false)
-    }, // 挂载之前
-    mounted: function () {
-      /* 设置画布大小 */
-      let canvas = document.querySelector('#game-main')
-      let game = document.querySelector('.Games')
-      this.game.w = game.clientWidth
-      this.game.h = game.clientHeight
-      canvas.width = game.clientWidth
-      canvas.height = game.clientHeight
     }, // 挂载之后
     beforeUpdate: function () {}, // 数据更新时调用,在渲染之前
     updated: function () {}, // 数据更新后,渲染后调用(禁止)
@@ -500,12 +493,34 @@
        *  横屏
        *  */
       hengshu () {
+        /* 设置画布大小 */
+        let canvas = document.querySelector('#game-main')
+        let game = document.querySelector('.Games')
+        this.game.w = game.clientWidth
+        this.game.h = game.clientHeight
+        canvas.width = game.clientWidth
+        canvas.height = game.clientHeight
         if (window.orientation === 180 || window.orientation === 0) {
           this.game.heng = true
         }
         if (window.orientation === 90 || window.orientation === -90) {
           this.game.heng = false
         }
+        if(window.orientation === undefined) {
+          /* 不兼容API的某些浏览器 */
+          this.game.heng = true
+          this.game.tip = '请使用手机或模拟移动设备访问该页面'
+          // if(this.game.w>this.game.h) {
+          //   this.game.heng = false
+          //   canvas.width = game.clientWidth
+          //   canvas.height = game.clientHeight
+          // }else {
+          //   this.game.heng = true
+          //   canvas.height = game.clientWidth
+          //   canvas.width = game.clientHeight
+          // }
+        }
+
       },
       /**
        * 显示界面

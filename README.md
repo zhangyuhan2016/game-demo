@@ -2,6 +2,7 @@
 这是一个Canvas小游戏的Demo,目前包含以下小游戏:
 
 ### [小鸟飞啊飞](https://zhangyuhan2016.github.io/game-demo/#/)
+
 -[x] 技能升级
 -[x] 金币道具
 -[x] 像素级碰撞检测
